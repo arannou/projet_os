@@ -10,7 +10,7 @@ parse_info *parse(char *ligne_cmd)
 	parse_info *info;
 	char *tok;
 	int i;
-
+	//ceci est un test
 	/* L'appel calloc initialise à zéro la structure de données,
 	 * ainsi on est certain d'avoir des 'AUTRE' dans tout le tableau
 	 * modificateur.
