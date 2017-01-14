@@ -1,3 +1,9 @@
+/*
+* Anais Pignet
+* Alicia Rannou
+* IMR1
+* commandes_internes.c : Code des fonctions appelées lors d'une appel à une fonction interne du shell
+*/
 #include "divers.h"
 #include "commandes_internes.h"
 

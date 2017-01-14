@@ -1,3 +1,10 @@
+/*
+* Anais Pignet
+* Alicia Rannou
+* IMR1
+* shell.c : code de la fonction main
+*/
+
 #include <stdio.h>
 #include <string.h>
 
@@ -20,7 +27,7 @@ int main (int argc, char *argv[]) {
   if (mode_interactif) {
     lire_variable ("OS", verOS, sizeof (verOS));
     printf ("imrShell - %s\n", (char *) verOS);
-    printf ("Programmation SystÃ¨me Windows - IMR 1\n");
+    printf ("Programmation Système Windows - IMR 1\n");
     fflush (stdout);
   }
 
@@ -33,7 +40,7 @@ int main (int argc, char *argv[]) {
     else {
       /* Si le mode n'est pas interractif (il y a des arguments sur la ligne
        * de commande lors de l'appel au shell), alors il faut ouvrir les
-       * fichiers en argument, un ï¿½ un (argv[i]), puis interpreter leur contenu
+       * fichiers en argument, un à un (argv[i]), puis interpreter leur contenu
        * dans la boucle suivante
        */
       (void) argv;
