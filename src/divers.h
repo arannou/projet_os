@@ -23,8 +23,8 @@ t_bool ecrire_variable (char* nomVar, char* valeur);
 t_bool lire_variable (char* nomVar, char* valeur, int taille);
 
 //MODIF ANAIS - 13/01/2017
-void definir_variable(char * nomVarEnv, char * valeurVar);
-void changer_variable (char * nomVarEnv, char * valeurVar);
+int definir_variable(char * nomVarEnv, char * valeurVar);
+int changer_variable (char * nomVarEnv, char * valeurVar);
 //FIN
 
 #endif

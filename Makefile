@@ -27,8 +27,7 @@ BINTGTS = ${TARGETS:%=${BIN}/%}
 CC = gcc
 
 # Options
-CFLAGS = -O0 -g -W -Wall -Wextra -Wconversion -Werror -mtune=native  -march=native  
-#-std=c99
+CFLAGS = -O0 -g -W -Wall -Wextra -Wconversion -Werror -mtune=native  -march=native -std=gnu99
 LDFLAGS = -lm -W -Wall -pedantic -L. -lm
 
 # Fichiers

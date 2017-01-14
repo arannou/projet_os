@@ -56,15 +56,7 @@ void AfficheInvite() {
 		}
 
 	}
-	//ANAIS - 13/01/2017
-	else if (lire_variable("set", invite, sizeof (invite)))
-	{
-		/* code */
-		strcpy(chaine, "");
-		definir_variable("set", var);
-
-	}
-	//FIN ANAIS
+	
 	else {
 		strcpy(chaine, "$ ");
 	}
@@ -85,19 +77,25 @@ t_bool ecrire_variable (char* nomVar, char* valeur) {
 
 t_bool lire_variable (char* nomVar, char* valeur, int taille) {
 	strcpy(valeur, "");
-
+	t_bool res = faux;
+	int result = setenv(nomVar, valeur, 1);
+	if (result == 0)
+	{
+		res = vrai;
+	}
 	printf("Appel a lire_variable (%s %d) a ecrire avec \"%s\", \"%s\" et %d. \n",
 		__FILE__,
 		__LINE__,
 		nomVar,
 		valeur,
 		taille);
-	return faux;
+	printf("%i\n", result);
+	return res;
 }
 
 //MODIF ANAIS - 13/01/2017
 
-void definir_variable (char * nomVarEnv, char * valeurVar){
+int definir_variable (char * nomVarEnv, char * valeurVar){
 	int result = setenv(nomVarEnv, valeurVar, 1);
 	if (result == 0){
 		printf("Succès");
@@ -105,9 +103,11 @@ void definir_variable (char * nomVarEnv, char * valeurVar){
 	else {
 		printf("Echec");
 	}
+
+	return result;
 }
 
-void changer_variable (char * nomVarEnv, char * valeurVar){
+int changer_variable (char * nomVarEnv, char * valeurVar){
 	int result = 0;
 	char * lieuVar = getenv(nomVarEnv);
 	if(lieuVar != NULL){
@@ -119,4 +119,6 @@ void changer_variable (char * nomVarEnv, char * valeurVar){
 			printf("Echec");
 		}
 	}
+
+	return result;
 }
