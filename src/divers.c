@@ -57,10 +57,11 @@ void AfficheInvite() {
 
 	}
 	//ANAIS - 13/01/2017
-	else if (lire_variable("set VAR", invite, sizeof (invite)))
+	else if (lire_variable("set", invite, sizeof (invite)))
 	{
 		/* code */
-		definir_variable("set VAR", invite);
+		strcpy(chaine, "");
+		definir_variable("set", var);
 
 	}
 	//FIN ANAIS

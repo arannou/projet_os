@@ -1,3 +1,9 @@
+/*
+* Anais Pignet
+* Alicia Rannou
+* IMR1
+* parse.c : code des fonctions réalisant le parcours de la ligne de commande, ainsi que l'initialisation d'une structure interne pour la sémantique de la ligne de commande.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "divers.h"
@@ -10,11 +16,11 @@ parse_info *parse(char *ligne_cmd)
 	parse_info *info;
 	char *tok;
 	int i;
-	//ceci est un test
-	/* L'appel calloc initialise Ã  zÃ©ro la structure de donnÃ©es,
+
+	/* L'appel calloc initialise à zéro la structure de données,
 	 * ainsi on est certain d'avoir des 'AUTRE' dans tout le tableau
 	 * modificateur.
-	 * La mï¿½me remarque est valable pour les chemin entree et sortie.
+	 * La même remarque est valable pour les chemin entree et sortie. 
 	 */
 	info = calloc(1, sizeof(parse_info));
 
@@ -56,19 +62,19 @@ parse_info *parse(char *ligne_cmd)
 		}
 		else if (EST_EGAL(tok, "#"))
 		{
-			/* Attention pour la prise en compte du commentaire :
+			/* Attention pour la prise en compte du commentaire : 
 			 * ... # commande en arriere plan
-			 * le commentaire doit ï¿½tre attachï¿½ ï¿½ la suite
+			 * le commentaire doit être attaché à la suite
 			 */
 			i++;
 			info->modificateur[i] = COMMENTAIRE;
-			strcpy(info->ligne_cmd[i], ""); /* on copie par dï¿½faut une chaine vide qui sera remplacï¿½e dans les itï¿½rations suivantes */
+			strcpy(info->ligne_cmd[i], ""); /* on copie par défaut une chaine vide qui sera remplacée dans les itérations suivantes */
 		}
 		else if (COMMENCE_PAR(tok, "#"))
 		{
-			/* Attention pour la prise en compte du commentaire :
+			/* Attention pour la prise en compte du commentaire : 
 			 * ... #commande en arriere plan
-			 * le commentaire doit ï¿½tre attachï¿½ au token courant
+			 * le commentaire doit être attaché au token courant
 			 */
 			i++;
 			info->modificateur[i] = COMMENTAIRE;
@@ -76,10 +82,10 @@ parse_info *parse(char *ligne_cmd)
 		}
 		else if (COMMENCE_PAR(tok, "%"))
 		{
-			/* Comme la substitution est faite directement, il est en rï¿½alitï¿½ inutile
-			 * de marquer la chaï¿½ne comme une variable.
+			/* Comme la substitution est faite directement, il est en réalité inutile
+			 * de marquer la chaîne comme une variable.
 			 * Ce ne serait pas le cas si on choisissait de faire la substitution de
-			 * la variable par sa valeur lors de l'interprï¿½tation de la commande
+			 * la variable par sa valeur lors de l'interprétation de la commande
 			 */
 
 			//info->modificateur[i] = VARIABLE;
@@ -89,12 +95,12 @@ parse_info *parse(char *ligne_cmd)
 		else
 		{
 			strcpy(info->ligne_cmd[i], tok);
-			if (info->modificateur[i] != COMMENTAIRE) /* pour le commentaire l'incrï¿½ment de i est dï¿½jï¿½ rï¿½alisï¿½ */
+			if (info->modificateur[i] != COMMENTAIRE) /* pour le commentaire l'incrément de i est déjà réalisé */
 				i++;
 		}
 
 		tok = strtok(NULL, SEPARATEUR);
-	}
+	}           
 
 	info->nb_arg = i;
 
@@ -113,9 +119,9 @@ int detection_fin_commande(parse_info *info, int debut)
 					info->modificateur[i]!=TUBE && \
 					info->modificateur[i]!=COMMENTAIRE))
 	{
-		/* Les seuls ï¿½lï¿½ments pouvant apparaï¿½tre entre deux commandes
-		 * sont ceux d'exï¿½cution conditionnelle, de tube ou de
-		 * commentaire (ce qui vient aprï¿½s n'ï¿½tant plus une commande)
+		/* Les seuls éléments pouvant apparaître entre deux commandes
+		 * sont ceux d'exécution conditionnelle, de tube ou de
+		 * commentaire (ce qui vient après n'étant plus une commande)
 		 */
 		i++;
 	}
@@ -132,9 +138,9 @@ void affiche_parse_info(parse_info *info)
 		affiche_commande(info, i);
 		i = detection_fin_commande(info, i);
 
-		/* Les seuls ï¿½lï¿½ments pouvant apparaï¿½tre entre deux commandes
-		 * sont ceux d'exï¿½cution conditionnelle, de tube ou de
-		 * commentaire (ce qui vient aprï¿½s n'ï¿½tant plus une commande)
+		/* Les seuls éléments pouvant apparaître entre deux commandes
+		 * sont ceux d'exécution conditionnelle, de tube ou de
+		 * commentaire (ce qui vient après n'étant plus une commande)
 		 */
 		if (i<info->nb_arg && info->modificateur[i]==EXECUTION)
 		{
@@ -165,8 +171,8 @@ void affiche_commande(parse_info *info, int debut)
 	i = debut;
 	while (i<n)
 	{
-		/* Les seuls ï¿½lï¿½ments pouvant apparaï¿½tre dans une commande
-		 * sont ceux de redirection ou d'exï¿½cution en arriï¿½re-plan
+		/* Les seuls éléments pouvant apparaître dans une commande
+		 * sont ceux de redirection ou d'exécution en arrière-plan
 		 */
 		if (info->modificateur[i]==REDIRECTION_ENTREE)
 		{

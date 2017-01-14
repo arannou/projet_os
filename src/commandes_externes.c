@@ -1,3 +1,10 @@
+/*
+* Anais Pignet
+* Alicia Rannou
+* IMR1
+* commandes_externes.c : Codes des fonctions permettant d'exécuter une commande non reconnue comme une commande interne.
+*/
+
 #include "divers.h"
 #include "commandes_externes.h"
 
