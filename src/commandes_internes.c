@@ -74,7 +74,7 @@ t_bool ActionCD (parse_info *info, int debut, int nbArg) {
    * (le repertoire de destination contient des espaces)
    */
   if (nbArg == 1) {
-    
+
     lire_variable ("USERPROFILE", def, sizeof (def));
     if (chdir (def) == -1) {
       printf ("Impossible de changer vers le repertoire '%s' \n", def );
@@ -108,7 +108,6 @@ t_bool	ActionLS (parse_info *info, int debut, int nbArg) {
   printf("Appel a actionLS (%s %d) a ecrire.\n",
 	 __FILE__,
 	 __LINE__);
-  
+
   return faux;
 }
-
