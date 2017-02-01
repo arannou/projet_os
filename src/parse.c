@@ -1,3 +1,9 @@
+/*
+* Anais Pignet
+* Alicia Rannou
+* IMR1
+* parse.c : code des fonctions r�alisant le parcours de la ligne de commande, ainsi que l'initialisation d'une structure interne pour la s�mantique de la ligne de commande.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include "divers.h"
@@ -10,11 +16,11 @@ parse_info *parse(char *ligne_cmd)
 	parse_info *info;
 	char *tok;
 	int i;
-	//ceci est un test
 	/* L'appel calloc initialise à zéro la structure de données,
+
 	 * ainsi on est certain d'avoir des 'AUTRE' dans tout le tableau
 	 * modificateur.
-	 * La m�me remarque est valable pour les chemin entree et sortie.
+	 * La m�me remarque est valable pour les chemin entree et sortie. 
 	 */
 	info = calloc(1, sizeof(parse_info));
 
@@ -56,7 +62,7 @@ parse_info *parse(char *ligne_cmd)
 		}
 		else if (EST_EGAL(tok, "#"))
 		{
-			/* Attention pour la prise en compte du commentaire :
+			/* Attention pour la prise en compte du commentaire : 
 			 * ... # commande en arriere plan
 			 * le commentaire doit �tre attach� � la suite
 			 */
@@ -66,7 +72,7 @@ parse_info *parse(char *ligne_cmd)
 		}
 		else if (COMMENCE_PAR(tok, "#"))
 		{
-			/* Attention pour la prise en compte du commentaire :
+			/* Attention pour la prise en compte du commentaire : 
 			 * ... #commande en arriere plan
 			 * le commentaire doit �tre attach� au token courant
 			 */
@@ -94,7 +100,7 @@ parse_info *parse(char *ligne_cmd)
 		}
 
 		tok = strtok(NULL, SEPARATEUR);
-	}
+	}           
 
 	info->nb_arg = i;
 

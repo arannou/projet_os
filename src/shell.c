@@ -1,3 +1,10 @@
+/*
+* Anais Pignet
+* Alicia Rannou
+* IMR1
+* shell.c : code de la fonction main
+*/
+
 #include <stdio.h>
 #include <string.h>
 
@@ -10,6 +17,8 @@
 
 int main (int argc, char *argv[]) {
 
+    setenv("OS","v2.2 (varEnv)", 1);
+
   char ligne_cmd[CHAINE_MAX];
   char verOS[CHAINE_MAX];
   FILE* entree;
@@ -19,7 +28,7 @@ int main (int argc, char *argv[]) {
 
   if (mode_interactif) {
     lire_variable ("OS", verOS, sizeof (verOS));
-    printf ("imrShell - %s\n", (char *) verOS);
+    printf ("imrShell - %s\n", (char *) &verOS);
     printf ("Programmation Système Windows - IMR 1\n");
     fflush (stdout);
   }

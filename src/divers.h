@@ -11,12 +11,15 @@
 
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
-	
+
 #define ARG_MAX 128
 #define CHAINE_MAX 512
 #define MAX_PATH 512
 
-typedef enum {faux=0, vrai} t_bool ; 
+#define VERT  "\e[92m"
+#define RESET  "\x1b[0m"
+
+typedef enum {faux=0, vrai} t_bool ;
 
 void AfficheInvite();
 t_bool ecrire_variable (char* nomVar, char* valeur);
