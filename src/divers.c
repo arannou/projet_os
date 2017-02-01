@@ -21,7 +21,8 @@ void AfficheInvite() {
 	    /* Format reconnu :
 	     * \u : remplace par l'utilisateur
 	     * \h : remplace par le nom de machine
-	     * \p : remplace par le chemin courant
+		 * \p : remplace par le chemin courant
+	     * \s : ajoute un espace
 	     */
 
 		strcpy(chaine, "");
@@ -70,8 +71,9 @@ void AfficheInvite() {
 	else {
 		strcpy(chaine, "$ ");
 	}
+	// printf("%sred\n", KRED);
+	printf ("%s%s%s", VERT, chaine, RESET);
 
-	printf ("%s", chaine);
 	fflush (stdout);
 }
 
