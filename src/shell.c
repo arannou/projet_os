@@ -17,7 +17,7 @@
 
 int main (int argc, char *argv[]) {
 
-    setenv("OS","v2.0 (varEnv)", 1);
+    setenv("OS","v2.2 (varEnv)", 1);
 
   char ligne_cmd[CHAINE_MAX];
   char verOS[CHAINE_MAX];

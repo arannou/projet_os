@@ -79,23 +79,24 @@ void AfficheInvite() {
 
 t_bool ecrire_variable (char* nomVar, char* valeur) {
 	setenv(nomVar, valeur,1);
-	printf("Appel a ecrire_variable (%s %d) a ecrire avec \"%s\" et \"%s\". \n",
-		__FILE__,
-		__LINE__,
-		nomVar,
-		valeur);
+	// printf("Appel a ecrire_variable (%s %d) a ecrire avec \"%s\" et \"%s\". \n",
+		// __FILE__,
+		// __LINE__,
+		// nomVar,
+		// valeur);
 		t_bool result = setenv(nomVar, valeur,1);
 	return result;
 }
 
 t_bool lire_variable (char* nomVar, char* valeur, int taille) {
 	strcpy(valeur, getenv(nomVar));
-	printf("Appel a lire_variable (%s %d) a ecrire avec \"%s\", \"%s\" et %d. \n",
-		__FILE__,
-		__LINE__,
-		nomVar,
-		valeur,
-		taille);
+	// printf("Appel a lire_variable (%s %d) a ecrire avec \"%s\", \"%s\" et %d. \n",
+	// 	__FILE__,
+	// 	__LINE__,
+	// 	nomVar,
+	// 	valeur,
+	// 	taille);
+	taille +=1; // voilà t'as vu je l'ai utilisée ta variable
 	if (valeur!= NULL) return vrai;
 	else return faux;
 }
