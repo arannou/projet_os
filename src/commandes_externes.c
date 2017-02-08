@@ -13,7 +13,8 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
   t_bool premierPlan, retour;
   int i, status;
   char chemin[CHAINE_MAX] = "/bin/";
-  //char arguments[CHAINE_MAX] = "";
+  
+  //char commande[CHAINE_MAX];
 
   //Création d'un fork
   pid_t pid_fils = fork();
@@ -25,10 +26,6 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
       strcat(ligne," ");
     }
     strcat(ligne, info->ligne_cmd[debut+i]);
-    /*if (i < 0 && i < nbArg-1)
-    {
-      strcat(arguments, info->ligne_cmd[debut+i]);
-    }*/
   }
   premierPlan = (info->modificateur[debut]!=ARRIERE_PLAN);
 
@@ -36,53 +33,33 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
   (void) premierPlan;
   strcat(chemin, info->ligne_cmd[debut]);
   
-  if (premierPlan == vrai){
-    //Pas de &, on exécute au premier plan
-    if (pid_fils == -1)
-    {
-      printf("Erreur dans le fils\n");
-      retour = faux;
-    }
-    if ( pid_fils == 0){ //Mon fils est créé
-      //execv (chemin : forme : "/usr/bin/commande", commande + arguments fini par NULL)
-      if (execl(chemin, ligne, NULL) == -1)
-      {
-        perror("execv");
-        exit(EXIT_FAILURE);
-      }
+  if (pid_fils == -1)
+  {
+   printf("Erreur dans le fils\n");
+   retour = faux;
+ }
+  //Mon fils est créé
+ else if (pid_fils == 0) 
+ {
+   printf("Execution de la commande, params : %s", info->ligne_cmd[1]);
 
-    }
-    else {
-
-     printf("Execution de la commande externe  (%s) situé %s \n", ligne, chemin);
-
-      wait(&status); //j'attends la fin de mon fils
-      retour = vrai;
-    }
-  }
-  else {
-    //On a un & donc on exécute en arrière plan
-   if (pid_fils == -1)
+   if (execl(chemin, ligne, NULL) == -1)
    {
-    printf("Erreur dans le fils\n");
-    retour = faux;
+    perror("execl");
+    exit(EXIT_FAILURE);
   }
-    if ( pid_fils == 0){ //Mon fils est créé
-      if (execl(chemin, ligne, NULL))
-      {
-        perror("execv");
-        exit(EXIT_FAILURE);
-      }
 
-    }
-    else {
+}
+else {
+  printf("Execution de la commande externe  (%s) situé %s \n", ligne, chemin);
 
-     printf("Execution de la commande externe  (%s) \n", ligne);
-
-      //On n'attend pas la fin du fils??
-     retour = vrai;
-   }
-  } 
+  if (premierPlan == vrai)
+  {
+    //j'attends la fin de mon fils
+    wait(&status); 
+  }
+  retour = vrai;
+}
 
 return retour;
 }
