@@ -10,7 +10,8 @@
 
 t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
   char ligne[CHAINE_MAX];
-  t_bool premierPlan, retour;
+  t_bool premierPlan = vrai;
+  t_bool retour;
   int i, status;
   char arguments[CHAINE_MAX];
 
@@ -29,11 +30,16 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
     {
       strcat(arguments, info->ligne_cmd[debut+i]);
     }
+    if (info->modificateur[i]!=ARRIERE_PLAN)
+    {
+      premierPlan = faux;
+    }
   }
-  premierPlan = (info->modificateur[debut]!=ARRIERE_PLAN);
+  //premierPlan = (info->modificateur[debut]!=ARRIERE_PLAN);
+  
 
   printf("execution d'une commande externe  (%s %d) a ecrire :\n%s\n", __FILE__, __LINE__, ligne);
-  (void) premierPlan;
+  
 
   if (pid_fils == -1)
   {
@@ -43,19 +49,19 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
   //Mon fils est créé
  else if (pid_fils == 0) 
  {
-   printf("Execution de la commande, params : %s", info->ligne_cmd[1]);
+   printf("Execution de la commande %s, params : %s", info->ligne_cmd[0], arguments);
    if (nbArg > 1)
    {
     if (execlp(info->ligne_cmd[0], info->ligne_cmd[0], arguments, NULL) == -1)
     {
-      perror("execl");
+      perror("execlp");
       exit(EXIT_FAILURE);
     }
   }
   else {
    if (execlp(info->ligne_cmd[0], info->ligne_cmd[0], NULL) == -1)
    {
-    perror("execl");
+    perror("execlp");
     exit(EXIT_FAILURE);
   }
 }
@@ -63,8 +69,6 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
 
 }
 else {
-  printf("Execution de la commande externe  (%s) situé %s \n", ligne, info->ligne_cmd[0]);
-
   if (premierPlan == vrai)
   {
     //j'attends la fin de mon fils
@@ -73,5 +77,6 @@ else {
   retour = vrai;
 }
 
+(void) premierPlan;
 return retour;
 }
