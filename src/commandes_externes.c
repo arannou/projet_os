@@ -12,9 +12,6 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
   char ligne[CHAINE_MAX];
   t_bool premierPlan, retour;
   int i, status;
-  char chemin[CHAINE_MAX] = "/bin/";
-  
-  //char commande[CHAINE_MAX];
 
   //Création d'un fork
   pid_t pid_fils = fork();
@@ -31,8 +28,7 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
 
   printf("execution d'une commande externe  (%s %d) a ecrire :\n%s\n", __FILE__, __LINE__, ligne);
   (void) premierPlan;
-  strcat(chemin, info->ligne_cmd[debut]);
-  
+ 
   if (pid_fils == -1)
   {
    printf("Erreur dans le fils\n");
@@ -43,7 +39,7 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
  {
    printf("Execution de la commande, params : %s", info->ligne_cmd[1]);
 
-   if (execl(chemin, ligne, NULL) == -1)
+   if (execlp(info->ligne_cmd[0], info->ligne_cmd[0], NULL) == -1)
    {
     perror("execl");
     exit(EXIT_FAILURE);
@@ -51,7 +47,7 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
 
 }
 else {
-  printf("Execution de la commande externe  (%s) situé %s \n", ligne, chemin);
+  printf("Execution de la commande externe  (%s) situé %s \n", ligne, info->ligne_cmd[0]);
 
   if (premierPlan == vrai)
   {
