@@ -74,7 +74,7 @@ t_bool ActionCD (parse_info *info, int debut, int nbArg) {
    * (le repertoire de destination contient des espaces)
    */
   if (nbArg == 1) {
-    
+
     lire_variable ("USERPROFILE", def, sizeof (def));
     if (chdir (def) == -1) {
       printf ("Impossible de changer vers le repertoire '%s' \n", def );
@@ -105,10 +105,21 @@ t_bool	ActionLS (parse_info *info, int debut, int nbArg) {
   (void) debut;
   (void) nbArg;
 
-  printf("Appel a actionLS (%s %d) a ecrire.\n",
-	 __FILE__,
-	 __LINE__);
-  
-  return faux;
-}
 
+    char var[CHAINE_MAX];
+    char * dwRet = getcwd (var, sizeof (var));
+    struct dirent* fichier = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
+    DIR* rep = NULL;
+    rep = opendir(dwRet);
+    if (rep == NULL) {
+        printf("Erreur, impossible d'ouvrir le répertoire courant\n");
+        return faux;
+    } else {
+        // ca serait bien de mettre des couleurs
+        // et de placer '.' et '..' au début
+        fichier = readdir(rep); /* On lit le premier répertoire du dossier. */
+        while ((fichier = readdir(rep)) != NULL)
+            printf("%s\n", fichier->d_name);
+        return vrai;
+    }
+}

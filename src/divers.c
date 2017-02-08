@@ -14,13 +14,16 @@ void AfficheInvite() {
 	size_t i;
 	char * dwRet;
 
+	setenv("INV","Bonjour$", 0);
+	setenv("USERNAME","user", 0);
 	if (lire_variable ("INV", invite, sizeof (invite))) {
 
-    /* Format reconnu :
-     * \u : remplace par l'utilisateur
-     * \h : remplace par le nom de machine
-     * \p : remplace par le chemin courant
-     */
+	    /* Format reconnu :
+	     * \u : remplace par l'utilisateur
+	     * \h : remplace par le nom de machine
+		 * \p : remplace par le chemin courant
+	     * \s : ajoute un espace
+	     */
 
 		strcpy(chaine, "");
 		for(i=0; i<strlen(invite); i++) {
@@ -56,69 +59,70 @@ void AfficheInvite() {
 		}
 
 	}
-	
+	//ANAIS - 13/01/2017
+	// else if (lire_variable("set", invite, sizeof (invite)))
+	// {
+	// 	/* code */
+	// 	strcpy(chaine, "");
+	// 	definir_variable("set", var);
+	//
+	// }
+	//FIN ANAIS
 	else {
 		strcpy(chaine, "$ ");
 	}
+	// printf("%sred\n", KRED);
+	printf ("%s%s%s", VERT, chaine, RESET);
 
-	printf ("%s", chaine);
 	fflush (stdout);
 }
 
 t_bool ecrire_variable (char* nomVar, char* valeur) {
-
-	printf("Appel a ecrire_variable (%s %d) a ecrire avec \"%s\" et \"%s\". \n",
-		__FILE__,
-		__LINE__,
-		nomVar,
-		valeur);
-	return faux;
+	setenv(nomVar, valeur,1);
+	// printf("Appel a ecrire_variable (%s %d) a ecrire avec \"%s\" et \"%s\". \n",
+		// __FILE__,
+		// __LINE__,
+		// nomVar,
+		// valeur);
+		t_bool result = setenv(nomVar, valeur,1);
+	return result;
 }
 
 t_bool lire_variable (char* nomVar, char* valeur, int taille) {
-	strcpy(valeur, "");
-	t_bool res = faux;
-	int result = setenv(nomVar, valeur, 1);
-	if (result == 0)
-	{
-		res = vrai;
-	}
-	printf("Appel a lire_variable (%s %d) a ecrire avec \"%s\", \"%s\" et %d. \n",
-		__FILE__,
-		__LINE__,
-		nomVar,
-		valeur,
-		taille);
-	printf("%i\n", result);
-	return res;
+	strcpy(valeur, getenv(nomVar));
+	// printf("Appel a lire_variable (%s %d) a ecrire avec \"%s\", \"%s\" et %d. \n",
+	// 	__FILE__,
+	// 	__LINE__,
+	// 	nomVar,
+	// 	valeur,
+	// 	taille);
+	taille +=1; // voilà t'as vu je l'ai utilisée ta variable
+	if (valeur!= NULL) return vrai;
+	else return faux;
 }
 
 //MODIF ANAIS - 13/01/2017
-
-int definir_variable (char * nomVarEnv, char * valeurVar){
-	int result = setenv(nomVarEnv, valeurVar, 1);
-	if (result == 0){
-		printf("Succès");
-	}
-	else {
-		printf("Echec");
-	}
-
-	return result;
-}
-
-int changer_variable (char * nomVarEnv, char * valeurVar){
-	int result = 0;
-	char * lieuVar = getenv(nomVarEnv);
-	if(lieuVar != NULL){
-		result = setenv(nomVarEnv, valeurVar, 1);
-		if (result == 0){
-			printf("Succès");
-		}
-		else {
-			printf("Echec");
-		}
-	}
-
-	return result;
-}
+//
+// void definir_variable (char * nomVarEnv, char * valeurVar){
+// 	int result = setenv(nomVarEnv, valeurVar, 1);
+// 	if (result == 0){
+// 		printf("Succès");
+// 	}
+// 	else {
+// 		printf("Echec");
+// 	}
+// }
+//
+// void changer_variable (char * nomVarEnv, char * valeurVar){
+// 	int result = 0;
+// 	char * lieuVar = getenv(nomVarEnv);
+// 	if(lieuVar != NULL){
+// 		result = setenv(nomVarEnv, valeurVar, 1);
+// 		if (result == 0){
+// 			printf("Succès");
+// 		}
+// 		else {
+// 			printf("Echec");
+// 		}
+// 	}
+// }
