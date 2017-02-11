@@ -8,5 +8,6 @@ t_bool  ActionECHO (parse_info *info, int debut, int nbArg) ;
 t_bool  ActionSET (parse_info *info, int debut, int nbArg);
 t_bool  ActionCD (parse_info *info, int debut, int nbArg);
 t_bool  ActionLS (parse_info *info, int debut, int nbArg);
+t_bool  ActionIMRSHELL (parse_info *info, int debut, int nbArg);
 
 #endif

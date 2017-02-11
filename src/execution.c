@@ -15,7 +15,7 @@ void execution_ligne_cmd(parse_info *info) {
   int resultat;
 
   /* cet appel est a supprimer et n'est la que pour illustrer l'existence de la structure de donnees */
-  printf("Appel a affiche_parse_info (%s %d) a supprimer\n", __FILE__, __LINE__);
+  // printf("Appel a affiche_parse_info (%s %d) a supprimer\n", __FILE__, __LINE__);
   affiche_parse_info(info);
 
   i = 0;
@@ -32,7 +32,7 @@ void execution_ligne_cmd(parse_info *info) {
     j = i;
     nb_arg = 0;
     while (j<n) {
-      /* Attention cas non detecte arguments après une redirection :
+      /* Attention cas non detecte arguments aprï¿½s une redirection :
        * commande arg1 < redirection arg2
        * il s'agit a priori d'une erreur de syntaxe du shell
        */
@@ -55,7 +55,7 @@ void execution_ligne_cmd(parse_info *info) {
     }
 
     /* cet appel est a supprimer et n'est la que pour illustrer l'existence de la structure de donnees */
-    printf("Appel a affiche_commande (%s %d) a supprimer\n", __FILE__, __LINE__);
+    // printf("Appel a affiche_commande (%s %d) a supprimer\n", __FILE__, __LINE__);
     affiche_commande(info, i);
     printf("\n");
 
@@ -83,7 +83,7 @@ void execution_ligne_cmd(parse_info *info) {
       break;
 
     case EXECUTION_SI:
-      /* la/les commande suivante va être directement traitee ici :
+      /* la/les commande suivante va ï¿½tre directement traitee ici :
        * i.e. ne sera pas executee
        */
       if(!resultat) {/* si on doit passer a la commande suivante... */
@@ -95,7 +95,7 @@ void execution_ligne_cmd(parse_info *info) {
       }
       break;
     case EXECUTION_SINON:
-      /* la/les commande suivante va être directement traitee ici :
+      /* la/les commande suivante va ï¿½tre directement traitee ici :
        * i.e. ne sera pas executee
        */
       if (resultat) { /* si on doit passer a la commande suivante... */
@@ -122,6 +122,8 @@ t_bool execution_cmd(parse_info *info, int debut, int nb_arg)
     return ActionLS (info, debut, nb_arg);
   } else if (EST_EGAL (info->ligne_cmd[debut], "set")) {
     return ActionSET (info, debut, nb_arg);
+    } else if (EST_EGAL (info->ligne_cmd[debut], "imrShell")) {
+    return ActionIMRSHELL (info, debut, nb_arg);
   } else {
     return ActionEXEC (info, debut, nb_arg);
   }

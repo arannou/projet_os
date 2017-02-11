@@ -6,6 +6,7 @@
 */
 #include "divers.h"
 #include "commandes_internes.h"
+#include "execution.h"
 
 t_bool	ActionECHO (parse_info *info, int debut, int nbArg) {
 
@@ -30,7 +31,7 @@ t_bool	ActionECHO (parse_info *info, int debut, int nbArg) {
   else {
     sortie=stdout;
   }
-  
+
   i = 1;
   while(i<nbArg)  {
     fprintf(sortie, "%s ", info->ligne_cmd[debut+i]);
@@ -138,4 +139,42 @@ t_bool	ActionLS (parse_info *info, int debut, int nbArg) {
             printf("%s\n", fichier->d_name);
         return vrai;
     }
+}
+
+t_bool ActionIMRSHELL (parse_info *info, int debut, int nbArg) {
+
+    (void) info;
+    (void) debut;
+
+    for(int i=1; i<nbArg; i++) {
+
+        // read lines
+        FILE * fp;
+        char * line = NULL;
+        size_t len = 0;
+        ssize_t read;
+
+        parse_info *infoLigne;
+
+        fp = fopen(info->ligne_cmd[debut+i], "r");
+
+        // fp = fopen("/home/alicia/Documents/Cours/test/projet_os/script1.imr", "r");
+        if (fp == NULL)
+            printf("ce fichier n'existe pas\n");
+            // exit(EXIT_FAILURE);
+
+        while ((read = getline(&line, &len, fp)) != -1) {
+
+            printf("Execution de : %s", line);
+            infoLigne = parse(line);
+            execution_ligne_cmd(infoLigne);
+        }
+
+        fclose(fp);
+        if (line)
+            free(line);
+        // exit(EXIT_SUCCESS);
+
+    }
+    return vrai;
 }
