@@ -11,11 +11,9 @@
 
 void execution_ligne_cmd(parse_info *info) {
 
-  int i, j, n, nb_arg;
+  int i, j, n, nb_arg, p[2];
   int resultat;
 
-  /* cet appel est a supprimer et n'est la que pour illustrer l'existence de la structure de donnees */
-  //  printf("Appel a affiche_parse_info (%s %d) a supprimer\n", __FILE__, __LINE__);
   affiche_parse_info(info);
 
   i = 0;
@@ -54,8 +52,6 @@ void execution_ligne_cmd(parse_info *info) {
       j++;
     }
 
-    /* cet appel est a supprimer et n'est la que pour illustrer l'existence de la structure de donnees */
-    //  printf("Appel a affiche_commande (%s %d) a supprimer\n", __FILE__, __LINE__);
     affiche_commande(info, i);
     printf("\n");
 
@@ -63,6 +59,7 @@ void execution_ligne_cmd(parse_info *info) {
       /* il faut traiter (par simplification uniquement pour deux commandes)
       * le cas de la communication via un tube
       */
+      pipe(p); //On crée un tube
     } else {
       resultat = execution_cmd(info, i, nb_arg);
     }
@@ -83,7 +80,7 @@ void execution_ligne_cmd(parse_info *info) {
       break;
 
       case EXECUTION_SI:
-      /* la/les commande suivante va �tre directement traitee ici :
+      /* la/les commande suivante va être directement traitee ici :
       * i.e. ne sera pas executee
       */
       if(!resultat) {/* si on doit passer a la commande suivante... */
@@ -95,13 +92,13 @@ void execution_ligne_cmd(parse_info *info) {
           }
           break;
           case EXECUTION_SINON:
-          /* la/les commande suivante va �tre directement traitee ici :
+          /* la/les commande suivante va être directement traitee ici :
           * i.e. ne sera pas executee
           */
           if (resultat) { /* si on doit passer a la commande suivante... */
             while (j<info->nb_arg && \
               (info->modificateur[j]!=EXECUTION && \
-                info->modificateur[j]!=EXECUTION_SI)) {
+                info->modificateur[j]!=EXECUTION_SI)) { //On fonctionne de la même manière que pour EXECUTION_SI, sauf qu'on vérifie que le modificateur est différent de EXECUTION et EXECUTION_SI.
                   j++;
                 }
               }
