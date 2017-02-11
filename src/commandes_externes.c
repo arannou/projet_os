@@ -11,7 +11,7 @@
 t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
   char ligne[CHAINE_MAX];
   t_bool premierPlan = vrai;
-  t_bool retour;
+  //t_bool retour;
   int i, status;
   char arguments[CHAINE_MAX];
 
@@ -44,7 +44,7 @@ t_bool	ActionEXEC (parse_info *info, int debut, int nbArg) {
   if (pid_fils == -1)
   {
    printf("Erreur dans le fils\n");
-   retour = faux;
+   //retour = faux;
  }
   //Mon fils est créé
  else if (pid_fils == 0) 
@@ -72,11 +72,14 @@ else {
   if (premierPlan == vrai)
   {
     //j'attends la fin de mon fils
-    wait(&status); 
+    wait(&status);
   }
-  retour = vrai;
+  else {
+    waitpid(pid_fils,&status, WNOHANG);
+  }
+  //retour = vrai;
 }
 
 (void) premierPlan;
-return retour;
+return faux;
 }
