@@ -40,13 +40,16 @@ int main (int argc, char *argv[]) {
       entree = stdin;
     }
     else {
+        // on crée un fichier
+        FILE * fp;
+        fp = fopen(argv[i], "r"); // ouverture du fichier
+        entree = fp; // le contenu du fichier est l'entrée
 
       /* Si le mode n'est pas interractif (il y a des arguments sur la ligne
        * de commande lors de l'appel au shell), alors il faut ouvrir les
        * fichiers en argument, un � un (argv[i]), puis interpreter leur contenu
        * dans la boucle suivante
        */
-      (void) argv;
     }
 
 
@@ -54,10 +57,9 @@ int main (int argc, char *argv[]) {
       info = parse(ligne_cmd);
       execution_ligne_cmd(info);
 
-      if (mode_interactif) {
-
-	AfficheInvite ();
-      }
+        if (mode_interactif) {
+	         AfficheInvite ();
+         }
     }
 
     mode_interactif = faux;
