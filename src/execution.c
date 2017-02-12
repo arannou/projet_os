@@ -16,7 +16,7 @@ void execution_ligne_cmd(parse_info *info) {
   int i, j, n, nb_arg, p[2];
   int resultat;
 
-  affiche_parse_info(info);
+  // affiche_parse_info(info);
 
   i = 0;
   while (i<info->nb_arg) {
