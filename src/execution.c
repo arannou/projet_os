@@ -8,6 +8,8 @@
 #include "execution.h"
 #include "commandes_internes.h"
 #include "commandes_externes.h"
+#include "ls.h"
+#include "echo.h"
 
 void execution_ligne_cmd(parse_info *info) {
 
@@ -122,8 +124,6 @@ t_bool execution_cmd(parse_info *info, int debut, int nb_arg)
     return ActionLS (info, debut, nb_arg);
   } else if (EST_EGAL (info->ligne_cmd[debut], "set")) {
     return ActionSET (info, debut, nb_arg);
-    } else if (EST_EGAL (info->ligne_cmd[debut], "imrShell")) {
-    return ActionIMRSHELL (info, debut, nb_arg);
   } else {
     return ActionEXEC (info, debut, nb_arg);
   }
