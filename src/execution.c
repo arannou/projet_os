@@ -54,8 +54,8 @@ void execution_ligne_cmd(parse_info *info) {
       j++;
     }
 
-    affiche_commande(info, i);
-    printf("\n");
+    // affiche_commande(info, i);
+    // printf("\n");
 
     if(info->modificateur[j]==TUBE) {
       /* il faut traiter (par simplification uniquement pour deux commandes)
