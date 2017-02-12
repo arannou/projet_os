@@ -7,8 +7,6 @@
 #include "divers.h"
 #include "commandes_internes.h"
 
-
-
 t_bool	ActionSET (parse_info *info, int debut, int nbArg) {
 
   /* si l'appel est correctement ecrit, on a :
