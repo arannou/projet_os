@@ -17,7 +17,7 @@
 
 int main (int argc, char *argv[]) {
 
-    setenv("OS","v2.2 (varEnv)", 1);
+    setenv("OS","by A. Pignet & A. Rannou", 1);
 
   char ligne_cmd[CHAINE_MAX];
   char verOS[CHAINE_MAX];
@@ -40,6 +40,7 @@ int main (int argc, char *argv[]) {
       entree = stdin;
     }
     else {
+
       /* Si le mode n'est pas interractif (il y a des arguments sur la ligne
        * de commande lors de l'appel au shell), alors il faut ouvrir les
        * fichiers en argument, un � un (argv[i]), puis interpreter leur contenu
