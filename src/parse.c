@@ -20,7 +20,7 @@ parse_info *parse(char *ligne_cmd)
 
 	 * ainsi on est certain d'avoir des 'AUTRE' dans tout le tableau
 	 * modificateur.
-	 * La m�me remarque est valable pour les chemin entree et sortie. 
+	 * La m�me remarque est valable pour les chemin entree et sortie.
 	 */
 	info = calloc(1, sizeof(parse_info));
 
@@ -62,7 +62,7 @@ parse_info *parse(char *ligne_cmd)
 		}
 		else if (EST_EGAL(tok, "#"))
 		{
-			/* Attention pour la prise en compte du commentaire : 
+			/* Attention pour la prise en compte du commentaire :
 			 * ... # commande en arriere plan
 			 * le commentaire doit �tre attach� � la suite
 			 */
@@ -72,7 +72,7 @@ parse_info *parse(char *ligne_cmd)
 		}
 		else if (COMMENCE_PAR(tok, "#"))
 		{
-			/* Attention pour la prise en compte du commentaire : 
+			/* Attention pour la prise en compte du commentaire :
 			 * ... #commande en arriere plan
 			 * le commentaire doit �tre attach� au token courant
 			 */
@@ -100,7 +100,7 @@ parse_info *parse(char *ligne_cmd)
 		}
 
 		tok = strtok(NULL, SEPARATEUR);
-	}           
+	}
 
 	info->nb_arg = i;
 
@@ -135,7 +135,7 @@ void affiche_parse_info(parse_info *info)
 
 	while (i<info->nb_arg)
 	{
-		affiche_commande(info, i);
+		// affiche_commande(info, i);
 		i = detection_fin_commande(info, i);
 
 		/* Les seuls �l�ments pouvant appara�tre entre deux commandes

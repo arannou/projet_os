@@ -1,0 +1,11 @@
+gedit script.imr &
+pstree -g > test.txt
+gedit test.txt &
+set VAR = INV
+set %VAR = \u\s[\p]$\s
+echo %OS
+ls
+set USERPROFILE = /home
+cd
+cd /usr/bin && echo ok || echo ko
+cd repertoire_inexistant && echo ok || echo ko
