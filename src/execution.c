@@ -8,6 +8,8 @@
 #include "execution.h"
 #include "commandes_internes.h"
 #include "commandes_externes.h"
+#include "ls.h"
+#include "echo.h"
 
 void execution_ligne_cmd(parse_info *info) {
 

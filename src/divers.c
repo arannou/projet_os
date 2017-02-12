@@ -14,6 +14,7 @@ void AfficheInvite() {
 	size_t i;
 	char * dwRet;
 
+	// on défini des variables d'environnement initiales
 	setenv("INV","Bonjour$", 0);
 	setenv("USERNAME","user", 0);
 	if (lire_variable ("INV", invite, sizeof (invite))) {
@@ -59,70 +60,35 @@ void AfficheInvite() {
 		}
 
 	}
-	//ANAIS - 13/01/2017
-	// else if (lire_variable("set", invite, sizeof (invite)))
-	// {
-	// 	/* code */
-	// 	strcpy(chaine, "");
-	// 	definir_variable("set", var);
-	//
-	// }
-	//FIN ANAIS
 	else {
 		strcpy(chaine, "$ ");
 	}
-	// printf("%sred\n", KRED);
+	// affichage de l'invite en couleur
 	printf ("%s%s%s", VERT, chaine, RESET);
 
 	fflush (stdout);
 }
-
+/* permet d'ecrire une valeur pour une variable d'environnement
+ @param nomChar : le nom de la variable
+ @param valeur : la valeur à lui attribuer
+ @return : succes ou échec de l'opération
+ */
 t_bool ecrire_variable (char* nomVar, char* valeur) {
 	setenv(nomVar, valeur,1);
-	// printf("Appel a ecrire_variable (%s %d) a ecrire avec \"%s\" et \"%s\". \n",
-		// __FILE__,
-		// __LINE__,
-		// nomVar,
-		// valeur);
-		t_bool result = setenv(nomVar, valeur,1);
+	// le 1 écrase la valeur précedente
+	t_bool result = setenv(nomVar, valeur,1);
 	return result;
 }
 
+/* permet de lire la valeur d'une variable d'environnement
+ @param nomChar : le nom de la variable
+ @param valeur : la valeur qui lui correspond
+ @param taille : taille de la valeur
+ @return : succes ou échec de l'opération
+ */
 t_bool lire_variable (char* nomVar, char* valeur, int taille) {
 	strcpy(valeur, getenv(nomVar));
-	// printf("Appel a lire_variable (%s %d) a ecrire avec \"%s\", \"%s\" et %d. \n",
-	// 	__FILE__,
-	// 	__LINE__,
-	// 	nomVar,
-	// 	valeur,
-	// 	taille);
-	taille +=1; // voilà t'as vu je l'ai utilisée ta variable
+	(void) taille;
 	if (valeur!= NULL) return vrai;
 	else return faux;
 }
-
-//MODIF ANAIS - 13/01/2017
-//
-// void definir_variable (char * nomVarEnv, char * valeurVar){
-// 	int result = setenv(nomVarEnv, valeurVar, 1);
-// 	if (result == 0){
-// 		printf("Succès");
-// 	}
-// 	else {
-// 		printf("Echec");
-// 	}
-// }
-//
-// void changer_variable (char * nomVarEnv, char * valeurVar){
-// 	int result = 0;
-// 	char * lieuVar = getenv(nomVarEnv);
-// 	if(lieuVar != NULL){
-// 		result = setenv(nomVarEnv, valeurVar, 1);
-// 		if (result == 0){
-// 			printf("Succès");
-// 		}
-// 		else {
-// 			printf("Echec");
-// 		}
-// 	}
-// }

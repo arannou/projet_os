@@ -7,49 +7,6 @@
 #include "divers.h"
 #include "commandes_internes.h"
 
-t_bool	ActionECHO (parse_info *info, int debut, int nbArg) {
-  /*Variables */
-  int i;
-  FILE *sortie;
-  /* si l'appel est correctement ecrit, on a :
-   * arguments[0] == "echo"
-   * arguments[1..nbArg-1] = "..."
-   *
-   * Par de lecture, mais une ecriture redirigee possible
-   */
-   // Si la redirection est demandée
-  if (!EST_EGAL(info->sortie, ""))
-  {
-    //On ouvre le fichier
-    sortie = fopen(info->sortie, "w");
-    if (sortie == NULL) //S'il y a eu une erreur lors de la lecture
-    {
-      /* Traitement du cas où le fichier n'est pas accessible en écriture */
-      printf("Erreur, le fichier demandé n'est pas accessible en écriture. Vous allez etre redirigé sur la sortie standard\n");
-     sortie=stdout; //On redirige l'utilisateur sur la sortie standard
-    }
-  }
-  //Si la redirection n'est pas demandée
-  else {
-    sortie=stdout; //On dirige l'utilisateur sur la sortie standard
-  }
-
-  i = 1;
-  while(i<nbArg)  {
-    fprintf(sortie, "%s ", info->ligne_cmd[debut+i]);
-    i++;
-  }
-  printf("\n");
-  // Si la redirection est demandée
-  if (!EST_EGAL(info->sortie, ""))
-  {
-    //On peut fermer notre fichier de sortie
-    fclose(sortie);
-  }
-
-  return vrai;
-}
-
 t_bool	ActionSET (parse_info *info, int debut, int nbArg) {
 
   /* si l'appel est correctement ecrit, on a :
@@ -118,28 +75,26 @@ t_bool ActionCD (parse_info *info, int debut, int nbArg) {
 }
 
 
-t_bool	ActionLS (parse_info *info, int debut, int nbArg) {
+/*t_bool ActionIMRSHELL (parse_info *info, int debut, int nbArg) {
+    for(int i=1; i<nbArg; i++) {
+        FILE * fp;
+        char * line = NULL;
+        size_t len = 0;
+        ssize_t read;
+        parse_info *infoLigne;
 
-  /* Utilisation des parametres */
-  (void) info;
-  (void) debut;
-  (void) nbArg;
-
-
-    char var[CHAINE_MAX];
-    char * dwRet = getcwd (var, sizeof (var));
-    struct dirent* fichier = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
-    DIR* rep = NULL;
-    rep = opendir(dwRet);
-    if (rep == NULL) {
-        printf("Erreur, impossible d'ouvrir le répertoire courant\n");
-        return faux;
-    } else {
-        // ca serait bien de mettre des couleurs
-        // et de placer '.' et '..' au début
-        fichier = readdir(rep); /* On lit le premier répertoire du dossier. */
-        while ((fichier = readdir(rep)) != NULL)
-            printf("%s\n", fichier->d_name);
-        return vrai;
+        fp = fopen(info->ligne_cmd[debut+i], "r");
+        if (fp == NULL)
+            printf("ce fichier n'existe pas\n");
+        while ((read = getline(&line, &len, fp)) != -1) {
+            printf("Execution de : %s", line);
+            infoLigne = parse(line);
+            execution_ligne_cmd(infoLigne);
+        }
+        fclose(fp);
+        if (line)
+            free(line);
     }
+    return vrai;
 }
+*/
